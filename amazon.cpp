@@ -9,6 +9,7 @@
 #include "db_parser.h"
 #include "product_parser.h"
 #include "util.h"
+#include "mydatastore.h"
 
 using namespace std;
 struct ProdNameSorter {
@@ -29,7 +30,7 @@ int main(int argc, char* argv[])
      * Declare your derived DataStore object here replacing
      *  DataStore type to your derived type
      ****************/
-    DataStore ds;
+    MyDataStore ds;
 
 
 
@@ -100,9 +101,46 @@ int main(int argc, char* argv[])
                 done = true;
             }
 	    /* Add support for other commands here */
+            else if (cmd == "ADD") { // add to user's cart
 
+              // read in username and product idx
+              string username;
+              unsigned int prodIdx;
+              if (ss >> username >> prodIdx) {
 
+                /*if (hits.empty()) {
+                    continue;
+                }*/
+                // add to user's cart
+                if (((prodIdx) <= hits.size()) && (prodIdx > 0)) {
+                  ds.addToCart(username, hits[prodIdx-1]);
+                }
+                else {
+                    cout << "Invalid request" << endl;
+                }
+              }
 
+            }
+            else if (cmd == "VIEWCART") { // view user's cart
+
+              // read in username
+              string username;
+              if (ss >> username) {
+                // show items
+                ds.viewCart(username);
+              }
+
+            }
+            else if (cmd == "BUYCART") { // buy user's cart if possible
+
+              // read in username
+              string username;
+              if (ss >> username) {
+                // buy products
+                ds.buyCart(username);
+              }
+
+            }
 
             else {
                 cout << "Unknown command" << endl;
@@ -124,7 +162,6 @@ void displayProducts(vector<Product*>& hits)
     for(vector<Product*>::iterator it = hits.begin(); it != hits.end(); ++it) {
         cout << "Hit " << setw(3) << resultNo << endl;
         cout << (*it)->displayString() << endl;
-        cout << endl;
         resultNo++;
     }
 }

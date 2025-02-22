@@ -5,6 +5,7 @@
 #include <set>
 #include <vector>
 #include <algorithm>
+#include "util.h"
 
 class Product {
 public:
@@ -38,6 +39,9 @@ public:
     std::string getName() const;
     int getQty() const;
     void subtractQty(int num);
+
+    // adding a get category function
+    std::string getCategory() const;
 
 protected:
     std::string name_;

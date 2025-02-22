@@ -39,6 +39,11 @@ int Product::getQty() const
     return qty_;
 }
 
+// I added this function 
+string Product::getCategory() const {
+  return category_;
+}
+
 /**
  * default implementation...can be overriden in a future
  * assignment

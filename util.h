@@ -14,18 +14,52 @@ template <typename T>
 std::set<T> setIntersection(std::set<T>& s1, std::set<T>& s2)
 {
 
+  // establish intersection set
+  std::set<T> myIntersection;
+  // create iterators for each set
+  typename std::set<T>::iterator iteratorForSet1 = s1.begin();
+  typename std::set<T>::iterator iteratorForSet2 = s2.begin();
 
+  // iterate through both sets at once
+  // making sure they're ordered using conditions
+  while ((iteratorForSet1 != s1.end()) && (iteratorForSet2 != s2.end())) {
+    
+    if (*iteratorForSet1 < *iteratorForSet2) {
+      // move iterator 1 forward so it comes before 2 cuz 1 is less
+      iteratorForSet1++;
+    }
 
+    else if (*iteratorForSet2 < *iteratorForSet1) {
+      // move iterator 2 forward so it comes before 1 cuz 2 is less
+      iteratorForSet2++;
+    }
 
+    else if (*iteratorForSet1 == *iteratorForSet2) {
+      // add one of them to result if they're same
+      // move iterator 1 forward so it comes before 2 cuz 1 is less
+      myIntersection.insert(*iteratorForSet2);
+      iteratorForSet1++;
+      iteratorForSet2++;
+    }
+
+  }
+  
+  // return intersection set
+  return myIntersection;
 
 }
 template <typename T>
 std::set<T> setUnion(std::set<T>& s1, std::set<T>& s2)
 {
 
+  // establish union set
+  std::set<T> myUnion;
+  
+  // add both sets to it
+  myUnion.insert(s1.begin(),s1.end());
+  myUnion.insert(s2.begin(),s2.end());
 
-
-
+  return myUnion;
 
 }
 
