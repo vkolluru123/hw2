@@ -311,8 +311,10 @@ void MyDataStore::viewCart(const string& username) {
 
   // otherwise, print cart
   vector<Product*>::iterator cit = userCart_[u].begin();
+  int itemIdx = 1;
   while (cit != userCart_[u].end()) {
-    cout << (*cit)->displayString() << endl;
+    cout <<"Item "<<itemIdx<<" "<<"\n"<< (*cit)->displayString() << endl;
+    itemIdx++;
     cit++;
   }
 
